@@ -13,13 +13,13 @@ service:
   internalPort: 8081
   annotations:
     fabric8.io/expose: "true"
-# resources:
-#   limits:
-#    cpu: 100m
-#    memory: 128Mi
-#   requests:
-#    cpu: 100m
-#    memory: 128Mi
+resources:
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
@@ -31,5 +31,7 @@ persistence:
   enabled: true
   accessMode: ReadWriteOnce
   size: 8Gi
+securityContext:
+  fsGroup: 2000
 
 defaultAdminPassword: admin123
