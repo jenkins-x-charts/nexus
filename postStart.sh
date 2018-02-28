@@ -26,3 +26,7 @@ do
     curl -u $USERNAME:$PASSWORD --header "Content-Type: application/json" "http://$HOST/service/rest/v1/script/" -d @/opt/sonatype/nexus/repositories/$i.json
     curl -X POST -u $USERNAME:$PASSWORD --header "Content-Type: text/plain" "http://$HOST/service/rest/v1/script/$i/run"
 done
+
+echo "\ncreating maven group"    
+curl -u $USERNAME:$PASSWORD --header "Content-Type: application/json" "http://$HOST/service/rest/v1/script/" -d @/opt/sonatype/nexus/maven-group.json
+curl -X POST -u $USERNAME:$PASSWORD --header "Content-Type: text/plain" "http://$HOST/service/rest/v1/script/maven-group/run"
