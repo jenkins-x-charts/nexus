@@ -1,0 +1,5 @@
+{
+  "name": "jitpack",
+  "type": "groovy",
+  "content": "repository.createMavenProxy('jitpack', 'https://jitpack.io')"
+}
