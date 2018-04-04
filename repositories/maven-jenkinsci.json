@@ -1,5 +1,5 @@
 {
-  "name": "maven.jenkins-ci.org",
+  "name": "maven-jenkinsci",
   "type": "groovy",
-  "content": "repository.createMavenProxy('maven.jenkins-ci.org', 'https://repo.jenkins-ci.org/releases/')"
+  "content": "repository.createMavenProxy('maven-jenkinsci', 'https://repo.jenkins-ci.org/releases/')"
 }
