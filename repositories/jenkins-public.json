@@ -1,0 +1,5 @@
+{
+  "name": "jenkins-public",
+  "type": "groovy",
+  "content": "repository.createMavenProxy('jenkins-public', 'https://repo.jenkins-ci.org/public/')"
+}
