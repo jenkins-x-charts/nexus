@@ -7,6 +7,10 @@ until $(curl --output /dev/null --silent --head --fail http://$HOST/); do
   sleep 5
 done
 
+chgrp -R 0 /nexus-data
+chmod -R g+rw /nexus-data
+find /nexus-data -type d -exec chmod g+x {} +
+
 USERNAME=admin
 PASSWORD=admin123
 
