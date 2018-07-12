@@ -7,6 +7,8 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  annotations:
+    configmap.fabric8.io/update-on-change: nexus
 spec:
   selector:
     matchLabels:
@@ -23,6 +25,12 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: NEXUS_CONTEXT
+          valueFrom:
+            configMapKeyRef:
+              name: nexus
+              key: context.path
         lifecycle:
           postStart:
             exec:
