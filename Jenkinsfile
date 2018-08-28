@@ -58,7 +58,6 @@ pipeline {
 
                 dir ('charts/nexus') {
                     container('jx-base') {
-                        sh "jx step git credentials"
                         sh "helm init --client-only"
                         sh "make release"
                     }
