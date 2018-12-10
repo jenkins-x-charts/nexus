@@ -1,4 +1,4 @@
-FROM sonatype/nexus3:3.13.0
+FROM sonatype/nexus3:3.14.0
 
 COPY *.json /opt/sonatype/nexus/
 COPY repositories /opt/sonatype/nexus/repositories
