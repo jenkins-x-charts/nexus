@@ -3,7 +3,6 @@ pipeline {
     environment {
         ORG         = 'jenkinsxio'
         APP_NAME    = 'nexus'
-        GIT_CREDS    = credentials('jenkins-x-git')
     }
     stages {
         stage('CI Build and Test') {
