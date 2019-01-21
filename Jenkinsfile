@@ -10,12 +10,13 @@ pipeline {
                 branch 'PR-*'
             }
             environment {
-                PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
+                PREVIEW_VERSION = "0.0.0-PREVIEW-$BRANCH_NAME-$BUILD_NUMBER"
                 PREVIEW_NAMESPACE = "$APP_NAME-$BRANCH_NAME".toLowerCase()
                 HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
             }
             steps {
                 sh "docker build -t docker.io/$ORG/$APP_NAME:$PREVIEW_VERSION ."
+                sh "docker push docker.io/$ORG/$APP_NAME:$PREVIEW_VERSION"
 
                 dir ('charts/nexus') {
                     sh "helm init --client-only"
