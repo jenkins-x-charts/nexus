@@ -13,6 +13,7 @@ find /nexus-data -type d -exec chmod g+x {} +
 
 USERNAME=admin
 PASSWORD=admin123
+declare -a SCRIPT_LIST=
 
 function createOrUpdateAndRun() {
     local scriptName=$1
@@ -45,3 +46,4 @@ for i in "${REPOS[@]}"; do
 done
 
 createOrUpdateAndRun maven-group /opt/sonatype/nexus/maven-group.json
+
