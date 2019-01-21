@@ -13,7 +13,13 @@ find /nexus-data -type d -exec chmod g+x {} +
 
 USERNAME=admin
 PASSWORD=admin123
+PASSWORD_FROM_FILE="$(cat /opt/sonatype/nexus/config/password || true)"
 declare -a SCRIPT_LIST=
+
+function die() {
+    echo "ERROR: $@" 1>&2
+    exit 1
+}
 
 function createOrUpdateAndRun() {
     local scriptName=$1
@@ -30,15 +36,38 @@ function createOrUpdateAndRun() {
     echo
 }
 
-if curl --fail --silent -u $USERNAME:$PASSWORD http://$HOST/service/metrics/ping; then
-
+function setScriptList() {
     # initialising the scripts already present once and assuming that there no duplicate script names in the scripts that follow
     SCRIPT_LIST=($(curl --fail -s -u $USERNAME:$PASSWORD http://$HOST/service/rest/v1/script | grep -oE "\"name\" : \"[^\"]+" | sed 's/"name" : "//'))
+}
 
+function setPasswordFromFile() {
+    if [ -n "${PASSWORD_FROM_FILE}" ]; then
+        echo "Updating PASSWORD variable from password file."
+        PASSWORD="${PASSWORD_FROM_FILE}"
+    else
+        echo "Not updating PASSWORD var. Password file either non-existent or not readable."
+    fi
+}
+
+if curl --fail --silent -u $USERNAME:$PASSWORD http://$HOST/service/metrics/ping; then
+    echo "Login to nexus succeeded. Default password worked. Updating password if available..."
+    setScriptList
     createOrUpdateAndRun admin_password /opt/sonatype/nexus/admin_password.json
+    setPasswordFromFile
+elif [ -n "${PASSWORD_FROM_FILE}" ]; then
+    setPasswordFromFile
+    echo "Default password failed. Checking password file..."
+    if curl --fail --silent -u $USERNAME:$PASSWORD http://$HOST/service/metrics/ping; then
+        echo "Login to nexus succeeded. Password from secret file worked."
+        setScriptList
+    else
+        die "Login to nexus failed. Tried both the default password and the provided password secret file."
+    fi
+else
+    die "Login to nexus failed. Tried the default password only since no password secret file was provided."
 fi
 
-PASSWORD=`cat /opt/sonatype/nexus/config/password`
 
 REPOS=($(ls /opt/sonatype/nexus/repositories | grep json | sed -e 's/\..*$//'))
 for i in "${REPOS[@]}"; do
