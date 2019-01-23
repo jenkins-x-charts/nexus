@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('CI Build and Test') {
             when {
-                branch 'PR-*'
+                environment name: 'JOB_TYPE', value: 'presubmit'
             }
             environment {
                 PREVIEW_VERSION = "0.0.0-PREVIEW-$BRANCH_NAME-$BUILD_NUMBER"
@@ -32,7 +32,7 @@ pipeline {
                 CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
             }
             when {
-                branch 'master'
+                environment name: 'JOB_TYPE', value: 'postsubmit'
             }
             steps {
                 git "https://github.com/jenkins-x/nexus"
