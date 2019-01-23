@@ -3,6 +3,7 @@ pipeline {
     environment {
         ORG         = 'jenkinsxio'
         APP_NAME    = 'nexus'
+        DOCKER_REGISTRY = 'docker.io'
     }
     stages {
         stage('CI Build and Test') {
