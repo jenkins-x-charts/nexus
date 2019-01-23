@@ -7,15 +7,16 @@ pipeline {
     stages {
         stage('CI Build and Test') {
             when {
-                branch 'PR-*'
+                environment name: 'JOB_TYPE', value: 'presubmit'
             }
             environment {
-                PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
+                PREVIEW_VERSION = "0.0.0-PREVIEW-$BRANCH_NAME-$BUILD_NUMBER"
                 PREVIEW_NAMESPACE = "$APP_NAME-$BRANCH_NAME".toLowerCase()
                 HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
             }
             steps {
                 sh "docker build -t docker.io/$ORG/$APP_NAME:$PREVIEW_VERSION ."
+                sh "docker push docker.io/$ORG/$APP_NAME:$PREVIEW_VERSION"
 
                 dir ('charts/nexus') {
                     sh "helm init --client-only"
@@ -31,7 +32,7 @@ pipeline {
                 CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
             }
             when {
-                branch 'master'
+                environment name: 'JOB_TYPE', value: 'postsubmit'
             }
             steps {
                 git "https://github.com/jenkins-x/nexus"
