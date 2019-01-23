@@ -49,6 +49,9 @@ pipeline {
                     sh "helm init --client-only"
                     sh "make release"
                 }
+
+                sh "updatebot push-version --kind helm $APP_NAME \$(cat version/VERSION)"
+
             }
         }
     }
