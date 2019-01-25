@@ -19,7 +19,7 @@ resources:
     memory: 4Gi
   requests:
     cpu: 100m
-    memory: 4GMi
+    memory: 4Gi
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
