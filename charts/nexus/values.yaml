@@ -14,12 +14,12 @@ service:
   annotations:
     fabric8.io/expose: "true"
 resources:
-  limits:
-    cpu: 100m
-    memory: 4Gi
-  requests:
-    cpu: 100m
-    memory: 4Gi
+  # limits:
+    # cpu: 100m
+    # memory: 4Gi
+  # requests:
+    # cpu: 100m
+    # memory: 4Gi
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
