@@ -20,6 +20,7 @@ resources:
   # requests:
     # cpu: 100m
     # memory: 2Gi
+env:
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30

@@ -75,5 +75,7 @@ for i in "${REPOS[@]}"; do
 done
 
 createOrUpdateAndRun maven-group /opt/sonatype/nexus/maven-group.json
-createOrUpdateAndRun disable-anonymous-access /opt/sonatype/nexus/disable-anonymous-access.json
 
+if [ -z "${ENABLE_ANONYMOUS_ACCESS}" ]; then
+  createOrUpdateAndRun disable-anonymous-access /opt/sonatype/nexus/disable-anonymous-access.json
+fi
