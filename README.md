@@ -1,4 +1,4 @@
-# Sonartype Nexus 3.x Chart
+## Sonartype Nexus 3.x Chart
 
 Repository for storing and caching artifacts.
 
