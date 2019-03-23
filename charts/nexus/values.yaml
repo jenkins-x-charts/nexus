@@ -21,6 +21,7 @@ resources:
     # cpu: 100m
     # memory: 2Gi
 env:
+  ENABLE_ANONYMOUS_ACCESS: false
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
