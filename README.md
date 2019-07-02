@@ -1,4 +1,4 @@
-## Sonartype Nexus 3.x Chart
+## Sonatype Nexus 3.x Chart
 
 Nexus is a repository for storing and caching artifacts.
 
