@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eu
-HOST=localhost:8081
+HOST="localhost:8081"
 
 until curl --output /dev/null --silent --head --fail http://${HOST}/; do
   printf '.'
@@ -11,11 +11,11 @@ chgrp -R 0 /nexus-data
 chmod -R g+rw /nexus-data
 find /nexus-data -type d -exec chmod g+x {} +
 
-USERNAME="admin"
-PASSWORD="admin123"
-PASSWORD_FROM_FILE="$(cat /opt/sonatype/nexus/config/password || true)"
 NEXUS_BASE_DIR="/opt/sonatype/nexus"
 NEXUS_REPO_DIR="${NEXUS_BASE_DIR}/repositories"
+USERNAME="admin"
+PASSWORD="admin123"
+PASSWORD_FROM_FILE="$(cat "${NEXUS_BASE_DIR}"/config/password || true)"
 declare -a SCRIPT_LIST
 
 function die() {
@@ -24,24 +24,25 @@ function die() {
 }
 
 function createOrUpdateAndRun() {
-    local scriptName=$1
-    local scriptFile=$2
-    local scriptName_regex=" ${scriptName} "
-    if [ "${#SCRIPT_LIST[@]}" = 0 ] || [[ ! " ${SCRIPT_LIST[*]} " =~ ${scriptName_regex} ]]; then
+    local scriptFile scriptName scriptNameRegex
+    scriptFile="${1}.json"
+    scriptName="$(basename "${1}")"
+    scriptNameRegex=" ${scriptName} "
+    if [ "${#SCRIPT_LIST[@]}" = 0 ] || [[ ! " ${SCRIPT_LIST[*]} " =~ ${scriptNameRegex} ]]; then
         echo "Creating ${scriptName} repository script"
         curl --fail -X POST -u "${USERNAME}":"${PASSWORD}" --header "Content-Type: application/json" "http://${HOST}/service/rest/v1/script/" -d @"${scriptFile}"
     else
         echo "Updating ${scriptName} repository script"
-        curl --fail -X PUT -u ${USERNAME}:${PASSWORD} --header "Content-Type: application/json" "http://${HOST}/service/rest/v1/script/${scriptName}" -d @"${scriptFile}"
+        curl --fail -X PUT -u "${USERNAME}":"${PASSWORD}" --header "Content-Type: application/json" "http://${HOST}/service/rest/v1/script/${scriptName}" -d @"${scriptFile}"
     fi
     echo "Running ${scriptName} repository script"
-    curl --fail -X POST -u ${USERNAME}:${PASSWORD} --header "Content-Type: text/plain" "http://${HOST}/service/rest/v1/script/${scriptName}/run"
+    curl --fail -X POST -u "${USERNAME}":"${PASSWORD}" --header "Content-Type: text/plain" "http://${HOST}/service/rest/v1/script/${scriptName}/run"
     echo
 }
 
 function setScriptList() {
     # initialising the scripts already present once and assuming that there no duplicate script names in the scripts that follow
-    mapfile SCRIPT_LIST < <(curl --fail -s -u "${USERNAME}":"${PASSWORD}" http://"${HOST}"/service/rest/v1/script | grep -oE "\"name\" : \"[^\"]+" | sed 's/"name" : "//')
+    mapfile -t SCRIPT_LIST < <(curl --fail -s -u "${USERNAME}":"${PASSWORD}" http://"${HOST}"/service/rest/v1/script | grep -oE "\"name\" : \"[^\"]+" | sed 's/"name" : "//')
 }
 
 function setPasswordFromFile() {
@@ -72,13 +73,13 @@ else
 fi
 
 
-mapfile REPOS < <(find "${NEXUS_REPO_DIR}" -type f -maxdepth 1 -name "*json*" | sed -e 's/\..*$//')
+mapfile -t REPOS < <(find "${NEXUS_REPO_DIR}" -maxdepth 1 -type f -name "*json*" | sed -e 's/\..*$//')
 for repo in "${REPOS[@]}"; do
-    createOrUpdateAndRun "${repo}" "${NEXUS_REPO_DIR}"/"${repo}".json
+    createOrUpdateAndRun "${repo}"
 done
 
-createOrUpdateAndRun maven-group "${NEXUS_BASE_DIR}"/maven-group.json
+createOrUpdateAndRun "${NEXUS_BASE_DIR}"/maven-group
 
 if [ -z "${ENABLE_ANONYMOUS_ACCESS}" ]; then
-  createOrUpdateAndRun disable-anonymous-access "${NEXUS_BASE_DIR}"/disable-anonymous-access.json
+  createOrUpdateAndRun "${NEXUS_BASE_DIR}"/disable-anonymous-access
 fi
