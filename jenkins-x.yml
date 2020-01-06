@@ -102,11 +102,16 @@ pipelineConfig:
                 args:
                   - release
                 dir: /workspace/source/charts/nexus
-              - name: update-bot
-                command: updatebot
+              - name: update-chart-version
+                command: jx
                 args:
-                - push-version
-                - --kind
-                - helm
+                - step
+                - create
+                - pr
+                - chart
+                - --name 
                 - nexus
+                - --version
                 - ${inputs.params.version}
+                - --repo 
+                - https://github.com/jenkins-x/jenkins-x-platform.git
