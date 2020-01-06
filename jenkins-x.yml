@@ -46,7 +46,7 @@ pipelineConfig:
                 command: make
                 args:
                   - build
-                dir: /workspace/source/helm/nexus
+                dir: /workspace/source/nexus
     release:
       pipeline:
         agent:
@@ -101,7 +101,7 @@ pipelineConfig:
                 command: make
                 args:
                   - release
-                dir: /workspace/source/helm/nexus
+                dir: /workspace/source/nexus
               - name: update-chart-version
                 command: jx
                 args:
