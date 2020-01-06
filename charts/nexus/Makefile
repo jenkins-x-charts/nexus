@@ -24,9 +24,9 @@ delete:
 	helm delete --purge ${NAME}
 
 clean:
-	rm -rf charts
-	rm -rf ${NAME}*.tgz
-	rm -rf requirements.lock
+	rm -rvf charts
+	rm -rvf ${NAME}*.tgz
+	rm -rvf requirements.lock
 
 release: clean build
 ifeq ($(OS),Darwin)
@@ -40,7 +40,7 @@ else
 endif
 	helm package .
 	curl --fail -u $(CHARTMUSEUM_USER):$(CHARTMUSEUM_PASS) --data-binary "@$(NAME)-$(VERSION).tgz" $(CHART_REPO)/api/charts
-	rm -rf ${NAME}*.tgz
+	rm -rvf ${NAME}*.tgz
 
 delete-from-chartmuseum:
 	curl --fail -u $(CHARTMUSEUM_USER):$(CHARTMUSEUM_PASS) -X DELETE $(CHART_REPO)/api/charts/$(NAME)/$(VERSION)

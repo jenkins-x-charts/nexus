@@ -31,12 +31,6 @@ pipelineConfig:
                     mountPath: /secrets
             name: pullRequest
             steps:
-              - name: helm-lint
-                image: gcr.io/jenkinsxio/builder-go
-                command: make
-                args:
-                  - build
-                dir: /workspace/source/charts/nexus
               - name: build-and-push-image
                 image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
                 command: /kaniko/executor
@@ -47,6 +41,12 @@ pipelineConfig:
                   - --context=/workspace/source
                   - --cache-dir=/workspace
                 dir: /workspace/source
+              - name: helm-lint
+                image: gcr.io/jenkinsxio/builder-go
+                command: make
+                args:
+                  - build
+                dir: /workspace/source/charts/nexus
     release:
       pipeline:
         agent:
@@ -87,11 +87,6 @@ pipelineConfig:
                     mountPath: /secrets
             name: release
             steps:
-              - name: helm-lint
-                command: make
-                args:
-                  - release
-                dir: /workspace/source/charts/nexus
               - name: build-and-push-image
                 image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
                 command: /kaniko/executor
@@ -102,6 +97,11 @@ pipelineConfig:
                   - --context=/workspace/source
                   - --cache-dir=/workspace
                 dir: /workspace/source
+              - name: helm-release
+                command: make
+                args:
+                  - release
+                dir: /workspace/source/charts/nexus
               - name: update-bot
                 command: updatebot
                 args:
