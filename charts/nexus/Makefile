@@ -34,7 +34,7 @@ ifeq ($(OS),Darwin)
 	sed -i "" -e "s/tag:.*/tag: $(VERSION)/" values.yaml
 else ifeq ($(OS),Linux)
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
-	sed -i "" -e "s/tag:.*/tag: $(VERSION)/" values.yaml
+	sed -i -e "s/tag:.*/tag: $(VERSION)/" values.yaml
 else
 	exit -1
 endif
