@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: gcr.io/jenkinsxio/nexus
-  tag: dev
+  repository: gcr.io/jenkins-x-infra/nexus
+  tag: 0.1.15
   pullPolicy: IfNotPresent
 service:
   name: nexus
