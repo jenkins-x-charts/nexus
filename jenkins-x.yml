@@ -87,7 +87,7 @@ pipelineConfig:
                     mountPath: /secrets
             name: release
             steps:
-              - name: helm-lint
+              - name: helm-release
                 command: make
                 args:
                   - release
