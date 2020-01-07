@@ -22,6 +22,7 @@ resources:
     # memory: 2Gi
 env:
   ENABLE_ANONYMOUS_ACCESS: false
+  NEXUS_SECURITY_RANDOMPASSWORD: false
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
