@@ -57,7 +57,7 @@ function setPasswordFromFile() {
 if curl --fail --silent -u "${USERNAME}":"${PASSWORD}" http://"${HOST}"/service/metrics/ping; then
     echo "Login to nexus succeeded. Default password worked. Updating password if available..."
     setScriptList
-    createOrUpdateAndRun admin_password "${NEXUS_BASE_DIR}"/admin_password.json
+    createOrUpdateAndRun "${NEXUS_BASE_DIR}"/admin_password
     setPasswordFromFile
 elif [ -n "${PASSWORD_FROM_FILE}" ]; then
     setPasswordFromFile
