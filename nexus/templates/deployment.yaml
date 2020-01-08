@@ -31,11 +31,6 @@ spec:
             configMapKeyRef:
               name: nexus
               key: context.path
-        - name: NEXUS_AUTHORIZATION
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: {{ template "nexus.name" . }}
         {{- range $key, $value := .Values.env }}
         - name: {{ $key }}
           value: "{{ $value }}"
@@ -65,8 +60,13 @@ spec:
         volumeMounts:
           - mountPath: /nexus-data
             name: nexus-data-volume
+          - mountPath: /opt/sonatype/nexus/config
+            name: {{ template "nexus.name" . }}
 
       volumes:
+        - name: {{ template "nexus.name" . }}
+          secret:
+            secretName: {{ template "nexus.name" . }}
         - name: nexus-data-volume
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
