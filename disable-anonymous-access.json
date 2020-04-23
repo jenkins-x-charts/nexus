@@ -1,5 +1,11 @@
 {
-    "name": "disable-anonymous-access",
-    "type": "groovy",
-    "content": "security.setAnonymousAccess(false)"
+  "userId": "anonymous",
+  "firstName": "Anonymous",
+  "lastName": "User",
+  "emailAddress": "anonymous@example.org",
+  "status": "disabled",
+  "source": "default",
+  "roles": [
+    "nx-anonymous"
+  ]
 }
