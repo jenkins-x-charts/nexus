@@ -1,0 +1,25 @@
+{
+  "name": "plugins-gradle",
+  "online": true,
+  "storage": {
+    "blobStoreName": "default",
+    "strictContentTypeValidation": true
+  },
+  "proxy": {
+    "remoteUrl": "https://plugins.gradle.org/m2",
+    "contentMaxAge": -1,
+    "metadataMaxAge": 1440
+  },
+  "negativeCache": {
+    "enabled": true,
+    "timeToLive": 1440
+  },
+  "httpClient": {
+    "blocked": false,
+    "autoBlock": true
+  },
+  "maven": {
+    "versionPolicy": "RELEASE",
+    "layoutPolicy": "STRICT"
+  }
+}
