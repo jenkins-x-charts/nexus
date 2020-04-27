@@ -1,0 +1,5 @@
+{
+  "name": "gradle-distributions",
+  "type": "groovy",
+  "content": "def name='gradle-distributions'\ndef url='https://services.gradle.org/distributions/'\nif(!repository.getRepositoryManager().exists(name)) { repository.createRawProxy(name, url) }\nrepository.getRepositoryManager().get(name).getConfiguration().getAttributes().'proxy'.'contentMaxAge' = -1"
+}

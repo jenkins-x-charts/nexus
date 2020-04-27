@@ -1,0 +1,5 @@
+{
+  "name": "jenkins-release",
+  "type": "groovy",
+  "content": "def name='jenkins-release'\ndef url='http://repo.jenkins-ci.org/releases/'\nif(!repository.getRepositoryManager().exists(name)) { repository.createMavenProxy(name, url) }\nrepository.getRepositoryManager().get(name).getConfiguration().getAttributes().'proxy'.'contentMaxAge' = -1"
+}
