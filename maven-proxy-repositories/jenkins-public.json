@@ -1,0 +1,25 @@
+{
+  "name": "jenkins-public",
+  "online": true,
+  "storage": {
+    "blobStoreName": "default",
+    "strictContentTypeValidation": true
+  },
+  "proxy": {
+    "remoteUrl": "https://repo.jenkins-ci.org/public/",
+    "contentMaxAge": -1,
+    "metadataMaxAge": 1440
+  },
+  "negativeCache": {
+    "enabled": true,
+    "timeToLive": 1440
+  },
+  "httpClient": {
+    "blocked": false,
+    "autoBlock": true
+  },
+  "maven": {
+    "versionPolicy": "RELEASE",
+    "layoutPolicy": "STRICT"
+  }
+}

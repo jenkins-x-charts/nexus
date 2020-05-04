@@ -1,5 +1,0 @@
-{
-  "name": "plugins-gradle",
-  "type": "groovy",
-  "content": "def name='plugins-gradle'\ndef url='https://plugins.gradle.org/m2'\nif(!repository.getRepositoryManager().exists(name)) { repository.createMavenProxy(name, url) }\nrepository.getRepositoryManager().get(name).getConfiguration().getAttributes().'proxy'.'contentMaxAge' = -1"
-}
