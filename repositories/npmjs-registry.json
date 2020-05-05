@@ -1,0 +1,5 @@
+{
+  "name": "npmjs-registry",
+  "type": "groovy",
+  "content": "def name='npmjs-registry'\ndef url='https://registry.npmjs.org'\nif(!repository.getRepositoryManager().exists(name)) { repository.createNpmProxy(name, url) }\nrepository.getRepositoryManager().get(name).getConfiguration().getAttributes().'proxy'.'contentMaxAge' = -1"
+}

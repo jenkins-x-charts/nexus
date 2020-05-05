@@ -1,0 +1,5 @@
+{
+  "name": "spring-milestone",
+  "type": "groovy",
+  "content": "def name='spring-milestone'\ndef url='https://repo.spring.io/milestone/'\nif(!repository.getRepositoryManager().exists(name)) { repository.createMavenProxy(name, url) }\nrepository.getRepositoryManager().get(name).getConfiguration().getAttributes().'proxy'.'contentMaxAge' = -1"
+}
