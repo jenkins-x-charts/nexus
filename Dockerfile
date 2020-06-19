@@ -1,4 +1,4 @@
-FROM sonatype/nexus3:3.22.1
+FROM sonatype/nexus3:3.24.0
 
 COPY *.json /opt/sonatype/nexus/
 COPY maven-proxy-repositories /opt/sonatype/nexus/maven-proxy-repositories

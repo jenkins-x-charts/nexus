@@ -15,6 +15,7 @@ find /nexus-data -type d -exec chmod g+x {} +
 NEXUS_BASE_DIR="/opt/sonatype/nexus"
 NEXUS_MAVEN_REPO_DIR="${NEXUS_BASE_DIR}/maven-proxy-repositories"
 NEXUS_NPMJS_REPO_DIR="${NEXUS_BASE_DIR}/npmjs-proxy-repositories"
+NEXUS_MAVEN_GROUP_DIR="${NEXUS_BASE_DIR}/maven-group-repositories"
 USERNAME="admin"
 PASSWORD="admin123"
 PASSWORD_FROM_FILE="$(cat "${NEXUS_BASE_DIR}"/config/password || true)"
@@ -77,6 +78,13 @@ echo "Creating npmjs proxy repositories from json"
 mapfile -t REPOS < <(find "${NEXUS_NPMJS_REPO_DIR}" -maxdepth 1 -type f -name "*json*")
 for repo in "${REPOS[@]}"; do
     runCurlFromJsonFile "${repo}" "service/rest/beta/repositories/npm/proxy" POST
+done
+
+# For each maven group repository json file, create the repo via the Nexus API.
+echo "Creating maven group repositories from json"
+mapfile -t REPOS < <(find "${NEXUS_MAVEN_GROUP_DIR}" -maxdepth 1 -type f -name "*json*")
+for repo in "${REPOS[@]}"; do
+    runCurlFromJsonFile "${repo}" "service/rest/beta/repositories/maven/group" POST
 done
 
 # It is not possible at this time to disable anonymous access at the server level via API.
