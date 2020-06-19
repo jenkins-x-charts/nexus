@@ -1,5 +1,0 @@
-{
-    "name": "maven-group",
-    "type": "groovy",
-    "content": "def name='maven-group'\ndef members = ['maven-public','maven-central', 'maven-releases', 'maven-snapshots', 'spring-milestone', 'spring-release', 'jitpack', 'jenkins-release', 'maven-jenkinsci', 'jenkins-public', 'plugins-gradle']\nif(!repository.getRepositoryManager().exists(name)) { repository.createMavenGroup(name, members) }"
-}
