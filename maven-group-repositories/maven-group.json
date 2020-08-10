@@ -6,6 +6,6 @@
     "strictContentTypeValidation": true
   },
   "group": {
-    "memberNames": ["maven-public","maven-central", "maven-releases", "maven-snapshot", "spring-milestone", "spring-release", "jitpack", "jenkins-release", "maven-jenkinsci", "jenkins-public", "plugins-gradle"]
+    "memberNames": ["maven-public","maven-central", "maven-releases","spring-milestone", "spring-release", "jitpack", "jenkins-release", "maven-jenkinsci", "jenkins-public", "plugins-gradle"]
   }
 }
