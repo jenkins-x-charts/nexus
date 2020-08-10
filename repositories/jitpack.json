@@ -1,5 +1,0 @@
-{
-  "name": "jitpack",
-  "type": "groovy",
-  "content": "def name='jitpack'\ndef url='https://jitpack.io'\nif(!repository.getRepositoryManager().exists(name)) { repository.createMavenProxy(name, url) }\nrepository.getRepositoryManager().get(name).getConfiguration().getAttributes().'proxy'.'contentMaxAge' = -1"
-}
