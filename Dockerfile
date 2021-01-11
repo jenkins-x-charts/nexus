@@ -11,3 +11,4 @@ RUN chgrp -R 0 /nexus-data
 RUN chmod -R g+rw /nexus-data
 RUN find /nexus-data -type d -exec chmod g+x {} +
 
+ENV NEXUS_DATA_CHOWN "true"
