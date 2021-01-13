@@ -7,10 +7,11 @@ until curl --output /dev/null --silent --head --fail http://${HOST}/; do
   sleep 5
 done
 
-
-chgrp -R 0 /nexus-data
-chmod -R g+rw /nexus-data
-find /nexus-data -type d -exec chmod g+x {} +
+if [ "$NEXUS_DATA_CHOWN" == "true" ]; then
+    chgrp -R 0 /nexus-data
+    chmod -R g+rw /nexus-data
+    find /nexus-data -type d -exec chmod g+x {} +
+fi
 
 NEXUS_BASE_DIR="/opt/sonatype/nexus"
 NEXUS_MAVEN_REPO_DIR="${NEXUS_BASE_DIR}/maven-proxy-repositories"
