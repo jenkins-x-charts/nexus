@@ -23,6 +23,7 @@ resources:
 env:
   ENABLE_ANONYMOUS_ACCESS: false
   NEXUS_SECURITY_RANDOMPASSWORD: false
+  JAVA_TOOL_OPTIONS: ""
 readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
