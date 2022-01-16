@@ -3,4 +3,4 @@ description: A Helm chart for Kubernetes
 name: nexus
 version: 1.41.0 
 icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/jenkins-x-platform/images/nexus.png
-home: https://softtechconsulting.github.com/nexus/nexus
+home: https://github.com/softtechconsulting/nexus
