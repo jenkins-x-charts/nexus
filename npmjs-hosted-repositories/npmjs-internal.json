@@ -1,0 +1,12 @@
+{
+  "name": "npmjs-internal",
+  "online": true,
+  "storage": {
+    "blobStoreName": "default",
+    "strictContentTypeValidation": true,
+    "writePolicy": "allow_once"
+  },
+  "cleanup": {
+    "policyNames": []
+  }
+}

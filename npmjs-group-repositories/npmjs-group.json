@@ -1,0 +1,11 @@
+{
+  "name": "npm-group",
+  "online": true,
+  "storage": {
+    "blobStoreName": "default",
+    "strictContentTypeValidation": true
+  },
+  "group": {
+    "memberNames": ["npmjs-internal", "npmjs-registry"]
+  }
+}

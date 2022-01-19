@@ -36,7 +36,6 @@
     "httpsPort": 8085
   },
   "dockerProxy": {
-    "indexType": "HUB",
-    "indexUrl": "string"
+    "indexType": "HUB"
   }
 }

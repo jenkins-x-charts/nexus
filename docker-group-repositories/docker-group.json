@@ -1,0 +1,18 @@
+{
+  "name": "docker-group",
+  "online": true,
+  "storage": {
+    "blobStoreName": "default",
+    "strictContentTypeValidation": true
+  },
+  "group": {
+    "memberNames": ["docker-proxy", "docker-internal"],
+    "writableMember": "docker-internal"
+  },
+  "docker": {
+    "v1Enabled": false,
+    "forceBasicAuth": true,
+    "httpPort": 8082,
+    "httpsPort": 8083
+  }
+}
