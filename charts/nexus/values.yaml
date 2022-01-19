@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: sonatype/nexus3
-  tag: 3.20.1
+  repository: austinfath/nexus
+  tag: 3.27.0
   pullPolicy: IfNotPresent
 service:
   name: nexus
