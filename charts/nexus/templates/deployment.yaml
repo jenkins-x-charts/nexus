@@ -44,6 +44,8 @@ spec:
               - /opt/sonatype/nexus/postStart.sh
         ports:
           - containerPort: {{ .Values.service.internalPort }}
+          - containerPort: {{ .Values.service.dockerProxyInternalPort }}
+          - containerPort: {{ .Values.service.dockerHostedInternalPort }}
         livenessProbe:
           httpGet:
             path: /

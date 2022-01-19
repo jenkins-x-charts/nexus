@@ -11,15 +11,21 @@ service:
   type: ClusterIP
   externalPort: 80
   internalPort: 8081
+  dockerProxyPort: 8082
+  dockerProxyInternalPort: 8082
+  dockerProxyName: "dockerproxy"
+  dockerHostedPort: 8083
+  dockerHostedInternalPort: 8083
+  dockerHostedName: "dockerhosted"
   annotations:
     fabric8.io/expose: "true"
 resources:
   # limits:
     # cpu: 100m
     # memory: 4Gi
-  # requests:
-    # cpu: 100m
-    # memory: 2Gi
+  requests:
+    cpu: 100m
+    memory: 2Gi
 env:
   ENABLE_ANONYMOUS_ACCESS: false
   NEXUS_SECURITY_RANDOMPASSWORD: false
