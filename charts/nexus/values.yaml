@@ -4,7 +4,7 @@
 replicaCount: 1
 image:
   repository: austinfath/nexus
-  tag: 3.27.0
+  tag: 3.27.1
   pullPolicy: IfNotPresent
 service:
   name: nexus
